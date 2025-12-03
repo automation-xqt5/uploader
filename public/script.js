@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // *** WICHTIG: Ersetzen Sie DIESE URL durch Ihre n8n PRODUCTION Webhook URL ***
     // (Wird hier hartcodiert, da wir keinen Node.js-Server mehr als Proxy verwenden)
-    const N8N_WEBHOOK_URL = 'https://n8n.xqtfive.cloud/webhook-test/0f6844ab-7e43-424f-840f-b4d80c1c80cf';
+    const UPLOAD_ENDPOINT = '/api/upload';
     
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('fileInput');
@@ -84,31 +84,40 @@ document.addEventListener('DOMContentLoaded', () => {
         // n8n wird dies als Binärdaten erkennen.
         formData.append('file', filesToUpload[0]); 
 
+           uploadButton.addEventListener('click', async () => {
+        if (filesToUpload.length === 0 || uploadButton.disabled) return;
+
+        statusMessage.className = 'status-message';
+        statusMessage.textContent = 'Lade hoch... Bitte warten.';
+
+        const formData = new FormData();
+        formData.append('file', filesToUpload[0]); 
+
         uploadButton.disabled = true;
 
         try {
-            // Sende direkt an die n8n Webhook URL
-            const response = await fetch(N8N_WEBHOOK_URL, {
+            // Sende an den lokalen Proxy-Endpunkt
+            const response = await fetch(UPLOAD_ENDPOINT, {
                 method: 'POST',
-                body: formData // Wichtig: FormData wird automatisch als multipart/form-data gesendet
+                body: formData 
             });
 
-            // Da n8n standardmäßig eine leere 200/204-Antwort sendet, 
-            // prüfen wir nur den Statuscode.
-            if (response.ok) {
-                statusMessage.textContent = 'Datei erfolgreich hochgeladen und an n8n gesendet!';
+            const data = await response.json();
+            
+            // --- Solución 2: Mensaje de confirmación en alemán ---
+            if (response.ok && data.erfolg) {
+                statusMessage.textContent = 'Datei erfolgreich hochgeladen und an n8n weitergeleitet!';
                 statusMessage.classList.add('success');
                 // Zurücksetzen nach erfolgreichem Upload
                 filesToUpload = [];
                 updateUI();
             } else {
-                // Fehler vom n8n-Server
-                statusMessage.textContent = `Upload-Fehler: n8n antwortete mit Status ${response.status}.`;
+                // Fehler vom Proxy oder n8n
+                statusMessage.textContent = `Upload-Fehler: ${data.nachricht || 'Unbekannter Serverfehler'}`;
                 statusMessage.classList.add('error');
             }
         } catch (error) {
-            // Netzwerkausfall oder anderer Fehler
-            statusMessage.textContent = 'Netzwerkfehler: Konnte n8n nicht erreichen.';
+            statusMessage.textContent = 'Netzwerkfehler: Konnte Server nicht erreichen.';
             statusMessage.classList.add('error');
         } finally {
             uploadButton.disabled = false;
