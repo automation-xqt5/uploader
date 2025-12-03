@@ -112,8 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusMessage.textContent = 'Datei erfolgreich hochgeladen und an n8n weitergeleitet!';
                 statusMessage.classList.add('success');
                 // Zurücksetzen nach erfolgreichem Upload
-                filesToUpload = [];
-                updateUI();
+                setTimeout(() => {
+                    filesToUpload = [];
+                    updateUI();
+                }, 8000); // Zeigt die Nachricht für 8 Sekunden an
                 
             } else {
                 // Fehler vom Proxy oder n8n
@@ -132,5 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
 
 
