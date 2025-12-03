@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datei-Uploader</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Dateien per SFTP hochladen</h1>
+        <p class="subtitle">
+            Wählen Sie eine oder mehrere Dateien aus oder ziehen Sie sie hierher, um sie sicher per Webhook zu versenden und damit sie korrekt gespeichert und verarbeitet werden.
+        </p>
+        
+        <div id="drop-area" class="drop-area">
+            <input type="file" id="fileInput" name="datei" multiple style="display: none;">
+            
+            <p id="drop-text">
+                Ziehen Sie Dateien hierher oder
+            </p>
+            <button id="select-button" class="btn-select">Datei(en) auswählen</button>
+        </div>
+        
+        <div id="file-list-container">
+            <!-- Die Dateinamen werden hier angezeigt -->
+        </div>
+
+        <button id="upload-button" class="btn-upload" disabled>Hochladen</button>
+
+        <p id="status-message" class="status-message"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
