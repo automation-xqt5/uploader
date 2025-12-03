@@ -39,13 +39,15 @@ app.post('/api/upload', async (req, res) => {
                 'Content-Type': req.headers['content-type'], 
                 'Content-Length': req.headers['content-length'],
             },
-            // NEU: Erforderlich für das Streaming des Bodies in Node.js fetch
+            
             duplex: 'half', 
         });
 
         // Leitet die Antwort von n8n an den Client weiter
         if (response.ok) {
             // Erfolgsnachricht im Body (für den Client)
+            await response.text(); 
+            
             return res.status(200).json({ 
                 erfolg: true, 
                 nachricht: 'Datei erfolgreich an n8n gesendet.' 
