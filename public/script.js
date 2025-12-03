@@ -1,5 +1,10 @@
-// script.js
+// public/script.js
+
 document.addEventListener('DOMContentLoaded', () => {
+    // *** WICHTIG: Ersetzen Sie DIESE URL durch Ihre n8n PRODUCTION Webhook URL ***
+    // (Wird hier hartcodiert, da wir keinen Node.js-Server mehr als Proxy verwenden)
+    const N8N_WEBHOOK_URL = 'https://n8n.xqtfive.cloud/webhook-test/0f6844ab-7e43-424f-840f-b4d80c1c80cf';
+    
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('fileInput');
     const selectButton = document.getElementById('select-button');
@@ -8,20 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusMessage = document.getElementById('status-message');
 
     let filesToUpload = [];
-
-    // Event-Listener für den Button zum Öffnen des Dateidialogs
+    
     selectButton.addEventListener('click', () => {
         fileInput.click();
     });
 
-    // Event-Listener für die Dateiauswahl
     fileInput.addEventListener('change', (e) => {
         handleFiles(e.target.files);
     });
 
-    // --- Drag and Drop Handling ---
-
-    // Highlight-Effekt beim Überziehen
     ['dragenter', 'dragover'].forEach(eventName => {
         dropArea.addEventListener(eventName, (e) => {
             e.preventDefault();
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, false);
     });
 
-    // Highlight entfernen
     ['dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, (e) => {
             e.preventDefault();
@@ -37,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, false);
     });
 
-    // Datei ablegen (Drop)
     dropArea.addEventListener('drop', (e) => {
         e.preventDefault();
         const dt = e.dataTransfer;
@@ -45,20 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFiles(files);
     }, false);
 
-    /**
-     * @function handleFiles
-     * @description Verarbeitet die ausgewählten/abgelegten Dateien.
-     * @param {FileList} files - Die Dateiliste.
-     */
     function handleFiles(files) {
-        filesToUpload = Array.from(files);
+        // WICHTIG: Für den Webhook-Upload senden wir nur die erste Datei.
+        filesToUpload = Array.from(files).slice(0, 1); 
         updateUI();
     }
 
-    /**
-     * @function updateUI
-     * @description Aktualisiert die UI basierend auf den Dateien in filesToUpload.
-     */
     function updateUI() {
         fileListContainer.innerHTML = '';
         statusMessage.textContent = '';
@@ -79,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Upload Logic ---
+   
 
     uploadButton.addEventListener('click', async () => {
         if (filesToUpload.length === 0 || uploadButton.disabled) return;
@@ -89,40 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Erstelle FormData für den Datei-Upload
         const formData = new FormData();
-        // Hier wird nur die erste Datei gesendet, da server.js nur upload.single() verwendet.
-        // Für mehrere Dateien müsste eine Schleife und upload.array() verwendet werden.
-        formData.append('datei', filesToUpload[0]); 
+        
+        // Füge die Datei hinzu. Der Feldname 'file' ist eine gängige Konvention.
+        // n8n wird dies als Binärdaten erkennen.
+        formData.append('file', filesToUpload[0]); 
 
         uploadButton.disabled = true;
 
         try {
-            const response = await fetch('/upload', {
+            // Sende direkt an die n8n Webhook URL
+            const response = await fetch(N8N_WEBHOOK_URL, {
                 method: 'POST',
-                body: formData
+                body: formData // Wichtig: FormData wird automatisch als multipart/form-data gesendet
             });
 
-            const data = await response.json();
-            
-            if (response.ok && data.erfolg) {
-                statusMessage.textContent = data.nachricht; // "Datei erfolgreich hochgeladen und Webhook benachrichtigt."
+            // Da n8n standardmäßig eine leere 200/204-Antwort sendet, 
+            // prüfen wir nur den Statuscode.
+            if (response.ok) {
+                statusMessage.textContent = 'Datei erfolgreich hochgeladen und an n8n gesendet!';
                 statusMessage.classList.add('success');
                 // Zurücksetzen nach erfolgreichem Upload
                 filesToUpload = [];
                 updateUI();
             } else {
-                // Fehler vom Server oder Webhook-Fehler
-                statusMessage.textContent = `Upload-Fehler: ${data.nachricht || 'Unbekannter Serverfehler'}`;
+                // Fehler vom n8n-Server
+                statusMessage.textContent = `Upload-Fehler: n8n antwortete mit Status ${response.status}.`;
                 statusMessage.classList.add('error');
             }
         } catch (error) {
             // Netzwerkausfall oder anderer Fehler
-            statusMessage.textContent = 'Netzwerkfehler: Konnte Server nicht erreichen.';
+            statusMessage.textContent = 'Netzwerkfehler: Konnte n8n nicht erreichen.';
             statusMessage.classList.add('error');
         } finally {
             uploadButton.disabled = false;
         }
     });
 
-    // Initialer UI-Zustand setzen
     updateUI();
 });
