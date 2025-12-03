@@ -75,8 +75,9 @@ app.post('/api/upload', async (req, res) => {
 app.use(express.raw({ type: 'application/octet-stream', limit: '10mb' })); 
 
 // Server starten
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => { // <--- Asignar a una variable
     console.log(`Server läuft auf Port ${PORT}.`);
     console.log(`N8N Webhook-URL: ${N8N_WEBHOOK_URL ? 'Konfiguriert' : 'FEHLT!'}`);
 });
-server.timeout = 30000;
+
+server.timeout = 300000;
