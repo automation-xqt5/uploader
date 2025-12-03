@@ -114,10 +114,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Zurücksetzen nach erfolgreichem Upload
                 filesToUpload = [];
                 updateUI();
+                return res.status(200).json({ 
+                    erfolg: true, 
+                    nachricht: 'Datei erfolgreich an n8n gesendet.' 
+                });
             } else {
                 // Fehler vom Proxy oder n8n
                 statusMessage.textContent = `Upload-Fehler: ${data.nachricht || 'Unbekannter Serverfehler'}`;
                 statusMessage.classList.add('error');
+                const n8nBody = await response.text();
+                return res.status(response.status).json({ 
+                    erfolg: false, 
+                    nachricht: `Fehler von n8n: Status ${response.status}. ${n8nBody}` 
+                });
             }
         } catch (error) {
             statusMessage.textContent = 'Netzwerkfehler: Konnte Server nicht erreichen.';
@@ -130,3 +139,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
