@@ -39,6 +39,8 @@ app.post('/api/upload', async (req, res) => {
                 'Content-Type': req.headers['content-type'], 
                 'Content-Length': req.headers['content-length'],
             },
+            // NEU: Erforderlich für das Streaming des Bodies in Node.js fetch
+            duplex: 'half', 
         });
 
         // Leitet die Antwort von n8n an den Client weiter
