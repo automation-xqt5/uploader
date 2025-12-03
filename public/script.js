@@ -1,10 +1,9 @@
 // public/script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // *** WICHTIG: Ersetzen Sie DIESE URL durch Ihre n8n PRODUCTION Webhook URL ***
-    // (Wird hier hartcodiert, da wir keinen Node.js-Server mehr als Proxy verwenden)
-    const UPLOAD_ENDPOINT = '/api/upload';
     
+    const UPLOAD_ENDPOINT = '/api/upload'; 
+
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('fileInput');
     const selectButton = document.getElementById('select-button');
@@ -13,15 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusMessage = document.getElementById('status-message');
 
     let filesToUpload = [];
-    
+
+    // Event-Listener für den Button zum Öffnen des Dateidialogs
     selectButton.addEventListener('click', () => {
         fileInput.click();
     });
 
+    // Event-Listener für die Dateiauswahl
     fileInput.addEventListener('change', (e) => {
         handleFiles(e.target.files);
     });
 
+    // --- Drag and Drop Handling ---
+
+    // Highlight-Effekt beim Überziehen
     ['dragenter', 'dragover'].forEach(eventName => {
         dropArea.addEventListener(eventName, (e) => {
             e.preventDefault();
@@ -29,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, false);
     });
 
+    // Highlight entfernen
     ['dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, (e) => {
             e.preventDefault();
@@ -36,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, false);
     });
 
+    // Datei ablegen (Drop)
     dropArea.addEventListener('drop', (e) => {
         e.preventDefault();
         const dt = e.dataTransfer;
@@ -43,12 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFiles(files);
     }, false);
 
+    /**
+     * @function handleFiles
+     * @description Verarbeitet die ausgewählten/abgelegten Dateien.
+     * @param {FileList} files - Die Dateiliste.
+     */
     function handleFiles(files) {
-        // WICHTIG: Für den Webhook-Upload senden wir nur die erste Datei.
-        filesToUpload = Array.from(files).slice(0, 1); 
+        // WICHTIG: Wir senden nur die erste Datei.
+        filesToUpload = Array.from(files).slice(0, 1);
         updateUI();
     }
 
+    /**
+     * @function updateUI
+     * @description Aktualisiert die UI basierend auf den Dateien in filesToUpload.
+     */
     function updateUI() {
         fileListContainer.innerHTML = '';
         statusMessage.textContent = '';
@@ -69,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-   
+    // --- Upload Logic (Verwendet den Proxy Local) ---
 
     uploadButton.addEventListener('click', async () => {
         if (filesToUpload.length === 0 || uploadButton.disabled) return;
@@ -77,20 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessage.className = 'status-message';
         statusMessage.textContent = 'Lade hoch... Bitte warten.';
 
-        // Erstelle FormData für den Datei-Upload
         const formData = new FormData();
-        
-        // Füge die Datei hinzu. Der Feldname 'file' ist eine gängige Konvention.
-        // n8n wird dies als Binärdaten erkennen.
-        formData.append('file', filesToUpload[0]); 
-
-           uploadButton.addEventListener('click', async () => {
-        if (filesToUpload.length === 0 || uploadButton.disabled) return;
-
-        statusMessage.className = 'status-message';
-        statusMessage.textContent = 'Lade hoch... Bitte warten.';
-
-        const formData = new FormData();
+        // Füge die Datei hinzu. Der Feldname 'file' muss mit dem Backend-Proxy übereinstimmen.
         formData.append('file', filesToUpload[0]); 
 
         uploadButton.disabled = true;
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             
-            // --- Solución 2: Mensaje de confirmación en alemán ---
+            
             if (response.ok && data.erfolg) {
                 statusMessage.textContent = 'Datei erfolgreich hochgeladen und an n8n weitergeleitet!';
                 statusMessage.classList.add('success');
@@ -124,5 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Initialer UI-Zustand setzen
     updateUI();
 });
