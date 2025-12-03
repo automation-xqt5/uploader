@@ -1,13 +1,16 @@
 # Dockerfile
 
-FROM nginx:alpine
+FROM node:20-alpine AS build
 
-# Kopiere die statischen Dateien in das Standard-Webverzeichnis von Nginx
+WORKDIR /app
 
-COPY public/ /usr/share/nginx/html
+COPY package*.json ./
 
-# Exponiere den Standard-HTTP-Port
-EXPOSE 80
+RUN npm install
 
-# Kommentar: Nginx startet automatisch und serviert die Dateien
-CMD ["nginx", "-g", "daemon off;"]
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
