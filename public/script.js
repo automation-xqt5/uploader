@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     filesToUpload = [];
                     updateUI();
-                }, 8000); // Zeigt die Nachricht für 8 Sekunden an
+                }, 5000); // Zeigt die Nachricht für 5 Sekunden an
                 
             } else {
                 // Fehler vom Proxy oder n8n
@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
 
 
 
