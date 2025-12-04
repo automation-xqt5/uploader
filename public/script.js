@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function handleFiles(files) {
         // WICHTIG: Wir senden nur die erste Datei.
-        filesToUpload = Array.from(files).slice(0, 1);
+        filesToUpload = Array.from(files);
         updateUI();
     }
 
@@ -86,20 +86,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Upload Logic (Verwendet den Proxy Local) ---
 
-    uploadButton.addEventListener('click', async () => {
-        if (filesToUpload.length === 0 || uploadButton.disabled) return;
+uploadButton.addEventListener('click', async () => {
+    if (filesToUpload.length === 0 || uploadButton.disabled) return;
 
-        statusMessage.className = 'status-message';
-        statusMessage.textContent = 'Lade hoch... Bitte warten.';
+    statusMessage.className = 'status-message';
+    statusMessage.textContent = `Starte Upload von ${filesToUpload.length} Datei(en)...`;
 
+    uploadButton.disabled = true;
+    let successfulUploads = 0;
+    let failedUploads = 0;
+
+    // Iteriere über jede Datei und sende sie einzeln
+    for (const file of filesToUpload) {
+        statusMessage.textContent = `Lade hoch: ${file.name} (${successfulUploads + failedUploads + 1} von ${filesToUpload.length})...`;
+        
         const formData = new FormData();
         // Füge die Datei hinzu. Der Feldname 'file' muss mit dem Backend-Proxy übereinstimmen.
-        formData.append('file', filesToUpload[0]); 
-
-        uploadButton.disabled = true;
+        formData.append('file', file); 
 
         try {
-            // Sende an den lokalen Proxy-Endpunkt
             const response = await fetch(UPLOAD_ENDPOINT, {
                 method: 'POST',
                 body: formData 
@@ -107,15 +112,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             
-            
             if (response.ok && data.erfolg) {
-                statusMessage.textContent = 'Datei erfolgreich hochgeladen und an n8n weitergeleitet!';
-                statusMessage.classList.add('success');
-                // Zurücksetzen nach erfolgreichem Upload
-                setTimeout(() => {
-                    filesToUpload = [];
-                    updateUI();
-                }, 5000); // Zeigt die Nachricht für 5 Sekunden an
+                successfulUploads++;
+            } else {
+                failedUploads++;
+                console.error(`Fehler beim Hochladen von ${file.name}: ${data.nachricht}`);
+            }
+        } catch (error) {
+            failedUploads++;
+            console.error(`Netzwerkfehler beim Hochladen von ${file.name}: ${error}`);
+        }
+    }
+
+    // Zeige das Endergebnis an
+    if (failedUploads === 0) {
+        statusMessage.textContent = `${successfulUploads} Datei(en) erfolgreich hochgeladen und an n8n weitergeleitet!`;
+        statusMessage.classList.add('success');
+    } else {
+        statusMessage.textContent = `${successfulUploads} erfolgreich, ${failedUploads} fehlgeschlagen. Bitte prüfen Sie die Konsole für Details.`;
+        statusMessage.classList.add('error');
+    }
+
+    // Verzögere das Zurücksetzen der UI um 4 Sekunden
+    setTimeout(() => {
+        filesToUpload = [];
+        updateUI();
+    }, 4000); // Zeigt die Nachricht für 5 Sekunden an
                 
             } else {
                 // Fehler vom Proxy oder n8n
@@ -134,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
 
 
 
