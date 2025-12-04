@@ -157,8 +157,9 @@ h1, .subtitle {
 .status-message.error {
     /* Stil: Rot wie zuvor */
    color: #dc3545;        /* Dunkelroter Text */
-    background-color: rgba(220, 53, 69, 0.15); /* Rot mit 15% Transparenz */
+    background-color: rgba(255, 255, 255, 0.15); /* Rot mit 15% Transparenz */
     border: 1px solid #dc3545;
 }
+
 
 
