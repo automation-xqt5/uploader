@@ -130,7 +130,7 @@ uploadButton.addEventListener('click', async () => {
 
     // Zeige das Endergebnis an
     if (failedUploads === 0) {
-        statusMessage.textContent = `${successfulUploads} Datei(en) erfolgreich hochgeladen und an n8n weitergeleitet!`;
+        statusMessage.textContent = `${successfulUploads} Datei(en) wurden erfolgreich hochgeladen!`;
         statusMessage.classList.add('success');
     } else {
         statusMessage.textContent = `${successfulUploads} erfolgreich, ${failedUploads} fehlgeschlagen. Bitte prüfen Sie die Konsole für Details.`;
@@ -150,6 +150,7 @@ uploadButton.addEventListener('click', async () => {
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
 
 
 
