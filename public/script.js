@@ -139,23 +139,14 @@ uploadButton.addEventListener('click', async () => {
         updateUI();
     }, 4000); // Zeigt die Nachricht für 5 Sekunden an
                 
-            } else {
-                // Fehler vom Proxy oder n8n
-                statusMessage.textContent = `Upload-Fehler: ${data.nachricht || 'Unbekannter Serverfehler'}`;
-                statusMessage.classList.add('error');
-                
-            }
-        } catch (error) {
-            statusMessage.textContent = 'Netzwerkfehler: Konnte Server nicht erreichen.';
-            statusMessage.classList.add('error');
-        } finally {
             uploadButton.disabled = false;
-        }
+        
     });
 
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
 
 
 
