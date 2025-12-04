@@ -1,3 +1,5 @@
+/* public/style.css */
+
 /* Definition von Farben und Schriftart */
 :root {
     --color-dark-blue: #1f3044; /* Haupt-Hintergrundfarbe (Navy/Dunkelblau) */
@@ -10,66 +12,73 @@ body {
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
     background-color: var(--color-dark-blue);
     color: var(--color-white); /* Standardmäßig weißer Text */
+    
+    /* Layout: Zentriert den gesamten Inhalt (main-container und Statusmeldung) */
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column; 
+    justify-content: center; /* Vertikal zentrieren */
+    align-items: center; /* Horizontal zentrieren */
+    
     min-height: 100vh;
     margin: 0;
-    padding-top: 50px; 
-    padding-bottom: 50px;
-    
-    /* Für das große Hintergrund-Logo 'X' müsste hier ein Hintergrundbild verwendet werden */
+    padding: 50px; /* Polsterung um den Inhalt herum */
 }
 
+/* NEU: Stil für den Haupt-Container des Zwei-Spalten-Layouts */
+.main-container {
+    display: flex;
+    align-items: center; /* Zentriert Logo und Karte vertikal */
+    justify-content: center;
+    gap: 80px; /* Abstand zwischen Logo und Karte */
+    max-width: 1200px; /* Begrenzt die Gesamtbreite */
+    width: 90%;
+}
+
+/* Stil für das Haupt-Logo (Columna Izquierda) */
 .main-logo {
     display: block;
     width: 250px; /* Größe des Logos */
-    height: 100px;
-    margin: 0 auto 60px auto;  /* Abstand zur Karte */
+    height: auto;
+    margin: 0; /* Entfernt alle Ränder */
 }
 
-.orange-accent {
-    color: var(--color-orange); /* Akzentfarbe für die '5' */
-}
-
-/* Die zentrale Karte (Card) ist nun transparent und zentriert */
+/* Die zentrale Karte (Card) ist nun transparent (Columna Derecha) */
 .card {
     background: transparent;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: none; /* Schatten entfernen */
+    box-shadow: none; 
     width: 100%;
     max-width: 500px;
-    text-align: center;
-    /* Positionierung, um den Inhalt zu zentrieren */
+    text-align: center; /* Text innerhalb der Karte zentrieren */
+    
+    /* Entfernt alle absoluten Positionierungen */
     position: relative; 
     transform: none; 
     top: auto;
     left: auto;
-    margin-top: 0;
+    margin: 0;
 }
 
 h1, .subtitle {
     color: var(--color-white); /* Sicherstellen, dass der Text weiß ist */
-    /* Schriftgröße und Ränder bleiben erhalten */
 }
 
 /* Drop-Area Stil (Gepunktete weiße Linie) */
 .drop-area {
     border: 2px dashed var(--color-white); 
-    background-color: rgba(255, 255, 255, 0.05); /* Halbtransparenter dunkler Hintergrund */
+    background-color: rgba(255, 255, 255, 0.05); 
     padding: 40px 20px;
     margin-bottom: 20px;
     transition: border-color 0.3s;
 }
 
 .drop-area.highlight {
-    border-color: var(--color-orange); /* Oranger Akzent beim Ziehen */
+    border-color: var(--color-orange); 
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Auswahl-Button: Farben invertieren, damit er hervorsticht */
+/* Auswahl-Button */
 .btn-select {
     background-color: var(--color-white);
     color: var(--color-dark-blue);
@@ -85,7 +94,7 @@ h1, .subtitle {
     background-color: #e0e0e0;
 }
 
-/* Hochladen-Button: Orange für den aktiven Zustand verwenden */
+/* Hochladen-Button */
 .btn-upload {
     background-color: #ccc; 
     color: var(--color-dark-blue);
@@ -125,30 +134,28 @@ h1, .subtitle {
     padding: 3px 0;
 }
 
-/* Statusmeldungen (Sichtbarkeit und Farben) */
+/* Statusmeldungen (Position unterhalb des main-container) */
 .status-message {
-    margin-top: 15px;
+    margin-top: 30px; /* Abstand zum main-container */
     font-weight: bold;
     text-align: center;
     padding: 10px;
     border-radius: 4px;
+    display: block;
+    width: 100%; 
+    max-width: 500px;
 }
 
 .status-message.success {
-    
-    background-color: rgba(255, 255, 255, 0.9); 
-    /* Textfarbe ist das XQT5 Orange */
-    color: var(--color-orange);           
+    /* Stil: Orange/Weiß wie gewünscht */
+    color: var(--color-dark-blue);        /* Dunkelblauer Text */
+    background-color: rgba(255, 255, 255, 0.9); /* Fast weißer Hintergrund */
     border: 1px solid var(--color-orange);
 }
 
 .status-message.error {
-    color: #721c24;        /* Dunkelroter Text */
-    background-color: #f8d7da; /* Hellroter Hintergrund */
+    /* Stil: Rot wie zuvor */
+    color: #721c24;        
+    background-color: #f8d7da; 
     border: 1px solid #f5c6cb;
 }
-
-
-
-
-
