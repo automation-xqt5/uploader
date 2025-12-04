@@ -12,18 +12,19 @@ body {
     color: var(--color-white); /* Standardmäßig weißer Text */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
     margin: 0;
     padding-top: 50px; 
     padding-bottom: 50px;
+    padding-left: 50px;
     /* Für das große Hintergrund-Logo 'X' müsste hier ein Hintergrundbild verwendet werden */
 }
 
 .main-logo {
     display: block;
     width: 250px; /* Größe des Logos */
-    height: 100px;
+    height: 70px;
     margin-bottom: 40px; /* Abstand zur Karte */
 }
 
@@ -39,7 +40,7 @@ body {
     box-shadow: none; /* Schatten entfernen */
     width: 100%;
     max-width: 500px;
-    text-align: center;
+    text-align: left;
     /* Positionierung, um den Inhalt zu zentrieren */
     position: relative; 
     transform: none; 
@@ -144,6 +145,7 @@ h1, .subtitle {
     background-color: #f8d7da; /* Hellroter Hintergrund */
     border: 1px solid #f5c6cb;
 }
+
 
 
 
