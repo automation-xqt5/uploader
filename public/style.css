@@ -21,7 +21,8 @@ body {
     
     min-height: 100vh;
     margin: 0;
-    padding: 50px; /* Polsterung um den Inhalt herum */
+    padding-top: 0;
+     /* Polsterung um den Inhalt herum */
 }
 
 /* NEU: Stil für den Haupt-Container des Zwei-Spalten-Layouts */
@@ -148,7 +149,7 @@ h1, .subtitle {
 
 .status-message.success {
     /* Stil: Orange/Weiß wie gewünscht */
-    color: var(--color-dark-blue);        /* Dunkelblauer Text */
+    color: var(--color-orange:);        /* Dunkelblauer Text */
     background-color: rgba(255, 255, 255, 0.9); /* Fast weißer Hintergrund */
     border: 1px solid var(--color-orange);
 }
@@ -159,3 +160,4 @@ h1, .subtitle {
     background-color: #f8d7da; 
     border: 1px solid #f5c6cb;
 }
+
