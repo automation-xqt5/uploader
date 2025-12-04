@@ -11,21 +11,22 @@ body {
     background-color: var(--color-dark-blue);
     color: var(--color-white); /* Standardmäßig weißer Text */
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     min-height: 100vh;
     margin: 0;
     padding-top: 50px; 
     padding-bottom: 50px;
-    padding-left: 50px;
+    
     /* Für das große Hintergrund-Logo 'X' müsste hier ein Hintergrundbild verwendet werden */
 }
 
 .main-logo {
     display: block;
     width: 250px; /* Größe des Logos */
-    height: 70px;
-    margin-bottom: 40px; /* Abstand zur Karte */
+    height: 100px;
+    margin: 0 auto 60px auto;  /* Abstand zur Karte */
 }
 
 .orange-accent {
@@ -40,12 +41,13 @@ body {
     box-shadow: none; /* Schatten entfernen */
     width: 100%;
     max-width: 500px;
-    text-align: left;
+    text-align: center;
     /* Positionierung, um den Inhalt zu zentrieren */
     position: relative; 
     transform: none; 
     top: auto;
     left: auto;
+    margin-top: 0;
 }
 
 h1, .subtitle {
@@ -145,6 +147,7 @@ h1, .subtitle {
     background-color: #f8d7da; /* Hellroter Hintergrund */
     border: 1px solid #f5c6cb;
 }
+
 
 
 
