@@ -23,7 +23,7 @@ body {
 .main-logo {
     display: block;
     width: 250px; /* Größe des Logos */
-    height: auto;
+    height: 100px;
     margin-bottom: 40px; /* Abstand zur Karte */
 }
 
@@ -144,5 +144,6 @@ h1, .subtitle {
     background-color: #f8d7da; /* Hellroter Hintergrund */
     border: 1px solid #f5c6cb;
 }
+
 
 
