@@ -43,7 +43,7 @@ body {
     display: block;
     width: 250px; /* Größe des Logos */
     height: auto;
-    margin: 0; /* Entfernt alle Ränder */
+    margin: 30px 0 0 0; /* Entfernt alle Ränder */
 }
 
 /* Die zentrale Karte (Card) ist nun transparent (Columna Derecha) */
@@ -175,6 +175,7 @@ h1, .subtitle {
     opacity: 0.7; 
     padding: 5px;
 }
+
 
 
 
