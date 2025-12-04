@@ -1,52 +1,75 @@
+/* Definition von Farben und Schriftart */
+:root {
+    --color-dark-blue: #1f3044; /* Haupt-Hintergrundfarbe (Navy/Dunkelblau) */
+    --color-white: #ffffff;
+    --color-orange: #f97316; /* Akzentfarbe (Orange) */
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7f9;
+    /* Schriftart Segoe UI mit Web-sicheren Alternativen */
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+    background-color: var(--color-dark-blue);
+    color: var(--color-white); /* Standardmäßig weißer Text */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    /* Für das große Hintergrund-Logo 'X' müsste hier ein Hintergrundbild verwendet werden */
 }
 
+/* Stil für das XQT5 Logo (oben links, wie in index.html definiert) */
+.header-logo {
+    font-size: 3rem;
+    font-weight: 700;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.orange-accent {
+    color: var(--color-orange); /* Akzentfarbe für die '5' */
+}
+
+/* Die zentrale Karte (Card) ist nun transparent und zentriert */
 .card {
-    background: white;
+    background: transparent;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: none; /* Schatten entfernen */
     width: 100%;
     max-width: 500px;
     text-align: center;
+    /* Positionierung, um den Inhalt zu zentrieren */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-h1 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 5px;
+h1, .subtitle {
+    color: var(--color-white); /* Sicherstellen, dass der Text weiß ist */
+    /* Schriftgröße und Ränder bleiben erhalten */
 }
 
-.subtitle {
-    color: #666;
-    margin-bottom: 25px;
-    font-size: 0.9rem;
-}
-
-/* Drop-Area Stil, basierend auf der gestrichelten Linie in Bild 1 */
+/* Drop-Area Stil (Gepunktete weiße Linie) */
 .drop-area {
-    border: 2px dashed #ccc;
-    border-radius: 5px;
+    border: 2px dashed var(--color-white); 
+    background-color: rgba(255, 255, 255, 0.05); /* Halbtransparenter dunkler Hintergrund */
     padding: 40px 20px;
     margin-bottom: 20px;
     transition: border-color 0.3s;
 }
 
 .drop-area.highlight {
-    border-color: #007bff;
-    background-color: #e9f5ff;
+    border-color: var(--color-orange); /* Oranger Akzent beim Ziehen */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Auswahl-Button: Farben invertieren, damit er hervorsticht */
 .btn-select {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-white);
+    color: var(--color-dark-blue);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -56,12 +79,13 @@ h1 {
 }
 
 .btn-select:hover {
-    background-color: #0056b3;
+    background-color: #e0e0e0;
 }
 
+/* Hochladen-Button: Orange für den aktiven Zustand verwenden */
 .btn-upload {
-    background-color: #ccc; /* Grauer Standardstil wie in Bild 1 */
-    color: #666;
+    background-color: #ccc; 
+    color: var(--color-dark-blue);
     border: none;
     padding: 10px 30px;
     border-radius: 5px;
@@ -72,40 +96,49 @@ h1 {
 }
 
 .btn-upload.active {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--color-orange); 
+    color: var(--color-white);
     cursor: pointer;
 }
 
 .btn-upload.active:hover {
-    background-color: #1e7e34;
+    background-color: #d8620e;
 }
 
+/* Container für die Dateiliste */
 #file-list-container {
     text-align: left;
     margin: 10px 0;
     padding: 10px;
-    border: 1px solid #eee;
-    background-color: #f9f9f9;
+    border: 1px solid var(--color-white);
+    background-color: rgba(255, 255, 255, 0.05);
     min-height: 30px;
     border-radius: 4px;
 }
 
 .file-item {
     font-size: 0.9rem;
-    color: #333;
+    color: var(--color-white);
     padding: 3px 0;
 }
 
+/* Statusmeldungen (Sichtbarkeit und Farben) */
 .status-message {
     margin-top: 15px;
     font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
 }
 
 .status-message.success {
-    color: #28a745;
+    color: #155724;        /* Dunkelgrüner Text */
+    background-color: #d4edda; /* Hellgrüner Hintergrund */
+    border: 1px solid #c3e6cb;
 }
 
 .status-message.error {
-    color: #dc3545;
+    color: #721c24;        /* Dunkelroter Text */
+    background-color: #f8d7da; /* Hellroter Hintergrund */
+    border: 1px solid #f5c6cb;
 }
