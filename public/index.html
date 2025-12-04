@@ -9,35 +9,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <img src="XQT5.png" alt="XQT5 Logo" class="main-logo">
-    <div class="card">
-        <h1>Dateien über Webhook laden</h1>
-        <p class="subtitle">
-            Wählen Sie eine oder mehrere Dateien aus oder ziehen Sie sie hierher, um sie sicher per Webhook zu versenden und damit sie korrekt gespeichert und verarbeitet werden.
-        </p>
+    
+    <div class="main-container">
         
-        <div id="drop-area" class="drop-area">
-            <input type="file" id="fileInput" name="datei" multiple style="display: none;">
-            
-            <p id="drop-text">
-                Ziehen Sie Dateien hierher oder
+       
+        <img src="logo.png" alt="XQT5 Logo" class="main-logo">
+
+       
+        <div class="card">
+            <h1>Dateien über Webhook laden</h1>
+            <p class="subtitle">
+                Wählen Sie eine oder mehrere Dateien aus oder ziehen Sie sie hierher, um sie sicher per Webhook zu versenden und damit sie korrekt gespeichert und verarbeitet werden.
             </p>
-            <button id="select-button" class="btn-select">Datei(en) auswählen</button>
-        </div>
-        
-        <div id="file-list-container">
-            <!-- Die Dateinamen werden hier angezeigt -->
-        </div>
+            
+            <div id="drop-area" class="drop-area">
+                <input type="file" id="fileInput" name="datei" multiple style="display: none;">
+                
+                <p id="drop-text">
+                    Ziehen Sie Dateien hierher oder
+                </p>
+                <button id="select-button" class="btn-select">Datei(en) auswählen</button>
+            </div>
+            
+            <div id="file-list-container">
+                <!-- Die Dateinamen werden hier angezeigt -->
+            </div>
 
-        <button id="upload-button" class="btn-upload" disabled>Hochladen</button>
-
-        <p id="status-message" class="status-message"></p>
+            <button id="upload-button" class="btn-upload" disabled>Hochladen</button>
+        </div>
     </div>
+    
+    
+    <p id="status-message" class="status-message"></p>
 
     <script src="script.js"></script>
 </body>
 
 </html>
+
 
 
 
