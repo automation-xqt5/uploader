@@ -15,16 +15,16 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding-top: 50px; 
+    padding-bottom: 50px;
     /* Für das große Hintergrund-Logo 'X' müsste hier ein Hintergrundbild verwendet werden */
 }
 
-/* Stil für das XQT5 Logo (oben links, wie in index.html definiert) */
-.header-logo {
-    font-size: 3rem;
-    font-weight: 700;
-    position: absolute;
-    top: 30px;
-    left: 30px;
+.main-logo {
+    display: block;
+    width: 250px; /* Größe des Logos */
+    height: auto;
+    margin-bottom: 40px; /* Abstand zur Karte */
 }
 
 .orange-accent {
@@ -41,10 +41,10 @@ body {
     max-width: 500px;
     text-align: center;
     /* Positionierung, um den Inhalt zu zentrieren */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; 
+    transform: none; 
+    top: auto;
+    left: auto;
 }
 
 h1, .subtitle {
@@ -144,4 +144,5 @@ h1, .subtitle {
     background-color: #f8d7da; /* Hellroter Hintergrund */
     border: 1px solid #f5c6cb;
 }
+
 
