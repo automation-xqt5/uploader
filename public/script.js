@@ -66,7 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateUI() {
         fileListContainer.innerHTML = '';
-        statusMessage.textContent = '';
+        
+            if (filesToUpload.length === 0) {
+                statusMessage.textContent = ''; 
+                statusMessage.className = 'status-message'; 
+            }
         
         if (filesToUpload.length > 0) {
             filesToUpload.forEach(file => {
@@ -146,6 +150,7 @@ uploadButton.addEventListener('click', async () => {
     // Initialer UI-Zustand setzen
     updateUI();
 });
+
 
 
 
