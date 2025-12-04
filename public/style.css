@@ -132,9 +132,11 @@ h1, .subtitle {
 }
 
 .status-message.success {
-    color: #155724;        /* Dunkelgrüner Text */
-    background-color: #d4edda; /* Hellgrüner Hintergrund */
-    border: 1px solid #c3e6cb;
+    
+    background-color: rgba(255, 255, 255, 0.9); 
+    /* Textfarbe ist das XQT5 Orange */
+    color: var(--color-orange);           
+    border: 1px solid var(--color-orange);
 }
 
 .status-message.error {
@@ -142,3 +144,4 @@ h1, .subtitle {
     background-color: #f8d7da; /* Hellroter Hintergrund */
     border: 1px solid #f5c6cb;
 }
+
