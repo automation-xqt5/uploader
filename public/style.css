@@ -149,17 +149,18 @@ h1, .subtitle {
 
 .status-message.success {
     /* Stil: Orange/Weiß */
-    color: #f97316; !important;       
+    color: #f97316 !important;       
     background-color: rgba(255, 255, 255, 0.9); /* Fast weißer Hintergrund */
     border: 1px solid #f97316;
 }
 
 .status-message.error {
     /* Stil: Rot wie zuvor */
-   color: #dc3545; !important;        /* Dunkelroter Text */
+   color: #dc3545 !important;        /* Dunkelroter Text */
     background-color: rgba(220, 53, 69, 0.15); /* Rot mit 15% Transparenz */
     border: 1px solid #dc3545;
 }
+
 
 
 
