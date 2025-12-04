@@ -16,12 +16,13 @@ body {
     /* Layout: Zentriert den gesamten Inhalt (main-container und Statusmeldung) */
     display: flex;
     flex-direction: column; 
-    justify-content: center; /* Vertikal zentrieren */
+    justify-content: flex-start; /* Vertikal zentrieren */
     align-items: center; /* Horizontal zentrieren */
     
     min-height: 100vh;
     margin: 0;
-    padding-top: 0;
+    padding-top: 100px;
+    padding-bottom: 50px;
      /* Polsterung um den Inhalt herum */
 }
 
@@ -160,6 +161,7 @@ h1, .subtitle {
     background-color: rgba(220, 53, 69, 0.15); /* Rot mit 15% Transparenz */
     border: 1px solid #dc3545;
 }
+
 
 
 
