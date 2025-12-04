@@ -16,17 +16,17 @@ body {
     /* Layout: Zentriert den gesamten Inhalt (main-container und Statusmeldung) */
     display: flex;
     flex-direction: column; 
-    justify-content: flex-start; /* Vertikal zentrieren */
+    justify-content: center; /* Vertikal zentrieren */
     align-items: center; /* Horizontal zentrieren */
     
     min-height: 100vh;
     margin: 0;
-    padding-top: 100px;
+    padding-top: 0;
     padding-bottom: 50px;
      /* Polsterung um den Inhalt herum */
 }
 
-/* NEU: Stil für den Haupt-Container des Zwei-Spalten-Layouts */
+/* Stil für den Haupt-Container des Zwei-Spalten-Layouts */
 .main-container {
     display: flex;
     align-items: center; /* Zentriert Logo und Karte vertikal */
@@ -34,6 +34,8 @@ body {
     gap: 80px; /* Abstand zwischen Logo und Karte */
     max-width: 1200px; /* Begrenzt die Gesamtbreite */
     width: 90%;
+
+    margin-top: 100px;
 }
 
 /* Stil für das Haupt-Logo (Columna Izquierda) */
@@ -173,6 +175,7 @@ h1, .subtitle {
     opacity: 0.7; 
     padding: 5px;
 }
+
 
 
 
